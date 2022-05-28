@@ -1,0 +1,39 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+features:
+  - ipfsOnEthereumContracts
+dataSources:
+  - kind: ethereum
+    name: ShopNFTMint
+    network: mumbai
+    source:
+      address: "0xcbc24fcea1f780824378cff806c543e5f07129b6"
+      abi: ShopNFTMint
+      startBlock: 26457842
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - Marketplace
+      abis:
+        - name: ShopNFTMint
+          file: ./abis/ShopNFTMint.json
+      eventHandlers:
+        - event: BoughtNFT(indexed uint256,indexed uint256,address,bool,bool,uint256,uint256)
+          handler: handleBoughtNFT
+        - event: DelistSale(uint256,uint256,uint256)
+          handler: handleDelistSale
+        - event: ListNFT(indexed uint256,indexed uint256,address,bool,bool,uint256,uint256)
+          handler: handleListNFT
+        - event: Mint(uint256,string,address,uint256,bool)
+          handler: handleMint
+        - event: PutNFTForSale(uint256,uint256,uint256)
+          handler: handlePutNFTForSale
+        # - event: Transfer(address,address,uint256,uint256,uint256)
+        #   handler: handleTransfer
+        - event: UpdateNFTSalePrice(uint256,uint256,uint256,uint256)
+          handler: handleUpdateNFTSalePrice
+      file: ./src/shop-nft-mint.ts

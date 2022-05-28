@@ -1,0 +1,18 @@
+type Token @entity {
+  id: ID!
+  tokenURI: String!
+  updatedAtTimestamp: BigInt!
+  owner: Bytes!
+  forSale: Boolean
+}
+
+type Marketplace @entity {
+  id: ID!
+  offeringId: BigInt
+  owner: Bytes!
+  isSale: Boolean!
+  isClosed: Boolean!
+  amount: BigInt!
+  updatedTimeStamp: BigInt!
+}
+
